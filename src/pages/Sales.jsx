@@ -21,11 +21,22 @@ function Sales() {
       })
   }, [])
 
-  const formatDate = (timestamp) => {
-    if (!timestamp || !timestamp._seconds) {
+  const formatDate = (dateString) => {
+    if (!dateString || typeof dateString !== 'string') {
       return 'Fecha inválida'
     }
-    return new Date(timestamp._seconds * 1000).toLocaleString('es-MX')
+
+    const date = new Date(dateString)
+
+    return date.toLocaleString('es-MX', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+      second: 'numeric',
+      timeZoneName: 'short',
+    })
   }
 
   if (loading) return <p>Cargando historial de compras...</p>
